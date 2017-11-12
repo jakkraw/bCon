@@ -1,0 +1,14 @@
+
+<form #form="ngForm" (ngSubmit)="loginUser(form.value)" class="form-group">
+	<div class="input">
+		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+		<input class="form-control col-xs-2" type="text" name="login" placeholder="login" id="login" ngModel>
+	</div>
+	<div class="input">
+		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+		<input class="form-control col-xs-2" type="password" name="password" placeholder="password" ngModel>
+	</div>
+	<div class="input">
+		<input class="btn btn-default" type="submit" value="Login">
+	</div>
+</form>

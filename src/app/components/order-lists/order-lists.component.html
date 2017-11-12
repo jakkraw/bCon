@@ -1,0 +1,2 @@
+<button (click)="updateOrders()">Refresh</button>
+<bcon-order *ngFor="let order of orders" [order]="order" (statusChange)="orderStatusChanged($event)"></bcon-order>
