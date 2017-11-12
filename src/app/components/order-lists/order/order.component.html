@@ -1,5 +1,8 @@
 <div>
 <p>Order id: {{order.id}} Order table: {{order.table}} Status:{{orderStatus}}</p>
+<bcon-item *ngFor="let item of order.items" [item]="item">test</bcon-item>
 <button (click)="acceptOrder()">Accept</button>
 <button (click)="cancelOrder()">Cancel</button>
+
+
 </div>

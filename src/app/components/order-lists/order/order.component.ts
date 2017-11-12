@@ -12,7 +12,9 @@ export class OrderComponent implements OnInit {
   @Output() statusChange = new EventEmitter<UpdateOrderEvent>();
 
   constructor() { }
-  ngOnInit() { }
+  ngOnInit() {
+    console.log(this.order)
+   }
 
   acceptOrder(): void {
     this.statusChange.emit(new UpdateOrderEvent(Status.DONE, this.order.id));

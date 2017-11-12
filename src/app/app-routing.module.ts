@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { OrderListsComponent } from './components/order-lists/order-lists.component';
 import { LoggedGuard } from './login/logged.guard'
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { MainComponent } from './components/main/main.component';
 
 const routes: Routes = [
   { 
@@ -13,7 +14,13 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [ LoggedGuard ],
-    component: OrderListsComponent
+    component: MainComponent,
+    children: [
+      { 
+        path: '', 
+        component: OrderListsComponent 
+      },
+    ]
   },
   
 ]

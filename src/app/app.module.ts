@@ -11,13 +11,17 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { LoginService } from './login/login.service';
 import { LoggedGuard } from './login/logged.guard';
 import { FormsModule } from '@angular/forms';
+import { ItemComponent } from './components/order-lists/order/item/item.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderListsComponent,
     OrderComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    ItemComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
