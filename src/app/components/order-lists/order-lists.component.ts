@@ -16,21 +16,24 @@ export class OrderListsComponent implements OnInit {
   constructor(private server: ServerConnectionService) { }
 
   ngOnInit() {
+    this.server.newOrderCallback(order =>{ this.orders.push(order)})// add only distinct
     this.updateOrders();
   }
 
   updateOrders() {
-    //TODO: keep subscriptions in variables , delete on destructor
+    //TODO: keep subscriptions in variables, delete on destructor
     this.server.allOrders().subscribe((orders: Order[]) => {
       this.orders = orders;
-    })
-    this.server.testCredentials().subscribe((b) => {
-      console.log(b)
     })
   }
 
   orderStatusChanged(event: UpdateOrderEvent) {
-    this.server.updateOrder(event).subscribe(() => { });
+    this.server.updateOrder(event).subscribe(ok => { 
+      if(!ok) return;
+
+      this.orders = this.orders.filter(item => item.id !== event.id);
+ 
+     });
   }
 
 }

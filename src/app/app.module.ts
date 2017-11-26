@@ -13,6 +13,9 @@ import { LoggedGuard } from './login/logged.guard';
 import { FormsModule } from '@angular/forms';
 import { ItemComponent } from './components/order-lists/order/item/item.component';
 import { MainComponent } from './components/main/main.component';
+import { WebSocketService } from 'angular2-websocket-service';
+import { SocketService } from './server-connection/socket.service';
+import { StompService } from 'ng2-stomp-service';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,7 @@ import { MainComponent } from './components/main/main.component';
     HttpModule,
     FormsModule
   ],
-  providers: [ ServerConnectionService, LoginService, LoggedGuard ],
+  providers: [ ServerConnectionService, LoginService, LoggedGuard, WebSocketService, SocketService, StompService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

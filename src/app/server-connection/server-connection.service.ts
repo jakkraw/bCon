@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/of';
 import { UpdateOrderEvent } from '../components/order-lists/order/order.component';
 import { Settings } from './settings';
 import { Order, Status } from './order';
 import { LoginService } from '../login/login.service';
 import { HttpParams, HttpClient } from '@angular/common/http';
+import { SocketService } from './socket.service';
 
 @Injectable()
 export class ServerConnectionService {
@@ -15,7 +18,9 @@ export class ServerConnectionService {
     'Accept': 'application/json'
   }
 
-  constructor(private http: Http, private loginService: LoginService) { }
+  private restaurantId:number 
+
+  constructor(private http: Http, private loginService: LoginService,private socketService:SocketService) { }
 
   allOrders(): Observable<Order[]> {
     let url = Settings.allOrdersUrl;
@@ -57,21 +62,23 @@ export class ServerConnectionService {
         }
         else return false;
       }
-      );
+      ).mergeMap(ok => {
+        if(!ok) return Observable.of(ok);
+        let url = Settings.RestaurantInfo;
+        let authHeader = this.loginService.authHeader();
+        let headers = new Headers(Object.assign(authHeader, this.jsonHeader));
+        return this.http.get(url, {headers: headers}).map((r: Response) => {
+          this.restaurantId = r.json().id;
+          return ok;
+        });
+      });
+    }
+
+  newOrderCallback(response){
+    return this.socketService.connect(this.restaurantId,response);
   }
 
-  testCredentials(): Observable<boolean> {
-    let url = Settings.testCredentialsUrl;
-    let authHeader = this.loginService.authHeader();
-    let headers = new Headers(Object.assign(authHeader, this.jsonHeader));
-    return this.http.get(url, { headers: headers }).map(r => {
-      if (r.status == 200) {
-        return true;
-      }
-      else return false;
-    }
-    );
-  }
+
 
 }
 
