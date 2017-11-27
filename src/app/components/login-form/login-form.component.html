@@ -1,14 +1,20 @@
+<div class="container">
+  <div class="jumbotron">
+    <div class="jumbotron-content">
+      <h1>Sign In</h1>
 
-<form #form="ngForm" (ngSubmit)="loginUser(form.value)" class="form-group">
-	<div class="input">
-		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-		<input class="form-control col-xs-2" type="text" name="login" placeholder="login" id="login" ngModel>
-	</div>
-	<div class="input">
-		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-		<input class="form-control col-xs-2" type="password" name="password" placeholder="password" ngModel>
-	</div>
-	<div class="input">
-		<input class="btn btn-default" type="submit" value="Login">
-	</div>
-</form>
+      <form #form="ngForm" (ngSubmit)="loginUser(form.value)" class="form-group">
+        <div class="form-group">
+          <label for="login">Login:</label>
+          <input class="form-control" type="text" name="login" placeholder="login" id="login" ngModel>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input class="form-control" type="password" name="password" placeholder="password" ngModel>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+    </div>
+  </div>
+</div>

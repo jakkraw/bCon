@@ -28,8 +28,4 @@ export class SocketService {
       this.stomp.subscribe('/topic/orders/'+restaurantId, response);
     })
   }
-
-  public response = (data) => {
-    console.log(data)
-  }
 }

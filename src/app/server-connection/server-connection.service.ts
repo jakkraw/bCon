@@ -18,7 +18,7 @@ export class ServerConnectionService {
     'Accept': 'application/json'
   }
 
-  private restaurantId:number 
+  private restaurantId:number
 
   constructor(private http: Http, private loginService: LoginService,private socketService:SocketService) { }
 
@@ -53,32 +53,39 @@ export class ServerConnectionService {
       'password': password
     };
 
-    
+
     return this.http.post(url, {}, { headers: headers, params: params })
       .map(r => {
-        if (r.status == 200) {
-          this.loginService.setToken(r.json());
-          return true;
+          if (r.status == 200) {
+            this.loginService.setToken(r.json());
+            return true;
+          }
+          else return false;
         }
-        else return false;
-      }
       ).mergeMap(ok => {
         if(!ok) return Observable.of(ok);
-        let url = Settings.RestaurantInfo;
-        let authHeader = this.loginService.authHeader();
-        let headers = new Headers(Object.assign(authHeader, this.jsonHeader));
-        return this.http.get(url, {headers: headers}).map((r: Response) => {
-          this.restaurantId = r.json().id;
-          return ok;
-        });
-      });
-    }
-
-  newOrderCallback(response){
-    return this.socketService.connect(this.restaurantId,response);
+        return this.getRestaurantId();
+      })
   }
 
+  getRestaurantId(): Observable<boolean> {
+    let url = Settings.RestaurantInfo;
+    let authHeader = this.loginService.authHeader();
+    let headers = new Headers(Object.assign(authHeader, this.jsonHeader));
+    return this.http.get(url, {headers: headers}).map((r: Response) => {
+      this.restaurantId = r.json().id;
+      return true;
+    });
+  }
 
-
+  newOrderCallback(response) {
+    if(this.restaurantId) {
+      this.socketService.connect(this.restaurantId, response);
+    } else {
+      this.getRestaurantId().subscribe(() => {
+        this.socketService.connect(this.restaurantId, response);
+      })
+    }
+  }
 }
 

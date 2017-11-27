@@ -1,10 +1,10 @@
 export interface Order{
     id:number,
-    table:number,
+    tableNumber:number,
     items:Item[],
     status:Status
   }
-  
+
 export interface Item{
     name:string,
     price:number

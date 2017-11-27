@@ -24,8 +24,13 @@ export class LoginService {
   }
 
   loggedIn():boolean{
-    if(this.authTokens != null && this.authTokens.access_token != null) 
+    if(this.authTokens != null && this.authTokens.access_token != null)
       return true;
     return false;
-  } 
+  }
+
+  logOut() {
+    this.authTokens = null;
+    sessionStorage.removeItem(this.storageTokenKeyName);
+  }
 }

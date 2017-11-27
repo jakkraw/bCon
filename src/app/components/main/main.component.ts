@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+import {LoginService} from "../../login/login.service";
 
 @Component({
   selector: 'bcon-main',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private login: LoginService
+  ) { }
 
   ngOnInit() {
   }
 
+  logOut() {
+    this.login.logOut();
+  }
 }
