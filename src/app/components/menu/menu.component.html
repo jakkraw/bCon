@@ -1,0 +1,7 @@
+<bcon-menu-item
+  *ngFor="let menuItem of restaurant?.menu"
+  (delete)="deleteItem($event)"
+  [menuItem]="menuItem"></bcon-menu-item>
+
+<button class="btn btn-success" (click)="addNew()">Add item</button>
+<button class="btn btn-primary" (click)="save()">Save changes</button>

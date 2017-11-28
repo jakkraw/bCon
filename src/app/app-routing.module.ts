@@ -4,6 +4,7 @@ import { OrderListsComponent } from './components/order-lists/order-lists.compon
 import { LoggedGuard } from './login/logged.guard'
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MainComponent } from './components/main/main.component';
+import {MenuComponent} from "./components/menu/menu.component";
 
 const routes: Routes = [
   {
@@ -30,7 +31,7 @@ const routes: Routes = [
       },
       {
         path: 'menu',
-        component: OrderListsComponent
+        component: MenuComponent
       }
     ]
   },

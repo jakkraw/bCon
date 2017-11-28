@@ -16,6 +16,8 @@ import { MainComponent } from './components/main/main.component';
 import { WebSocketService } from 'angular2-websocket-service';
 import { SocketService } from './server-connection/socket.service';
 import { StompService } from 'ng2-stomp-service';
+import { MenuComponent } from './components/menu/menu.component';
+import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { StompService } from 'ng2-stomp-service';
     OrderComponent,
     LoginFormComponent,
     ItemComponent,
-    MainComponent
+    MainComponent,
+    MenuComponent,
+    MenuItemComponent
   ],
   imports: [
     BrowserModule,

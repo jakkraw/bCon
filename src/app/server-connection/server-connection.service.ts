@@ -10,6 +10,8 @@ import { Order, Status } from './order';
 import { LoginService } from '../login/login.service';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { SocketService } from './socket.service';
+import {Restaurant} from "../model/restaurant";
+import {MenuItem} from "../model/menu-item";
 
 @Injectable()
 export class ServerConnectionService {
@@ -69,12 +71,27 @@ export class ServerConnectionService {
   }
 
   getRestaurantId(): Observable<boolean> {
+    return this.getRestaurantDetails().map(restaurant => {
+      this.restaurantId = restaurant.id;
+      return true;
+    });
+  }
+
+  getRestaurantDetails(): Observable<Restaurant> {
     let url = Settings.RestaurantInfo;
     let authHeader = this.loginService.authHeader();
     let headers = new Headers(Object.assign(authHeader, this.jsonHeader));
     return this.http.get(url, {headers: headers}).map((r: Response) => {
-      this.restaurantId = r.json().id;
-      return true;
+      return r.json();
+    });
+  }
+
+  updateRestaurantMenu(menu: Array<MenuItem>): Observable<Restaurant> {
+    let url = Settings.RestaurantUpdateMenu;
+    let authHeader = this.loginService.authHeader();
+    let headers = new Headers(Object.assign(authHeader, this.jsonHeader));
+    return this.http.post(url, menu, {headers: headers}).map((r: Response) => {
+      return r.json();
     });
   }
 

@@ -14,4 +14,5 @@ export class Settings {
     public static AppBase64:string = "YmNvbi13ZWItYXBwOnNlY3JldA==";
     public static WebsocketEndpoint:string = Settings.address+"stomp-endpoint";
     public static RestaurantInfo:string = Settings.address+"user/restaurant";
+  public static RestaurantUpdateMenu:string = Settings.address+"restaurants/menu";
 }

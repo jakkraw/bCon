@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form class="form-inline">
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" name="name"
+               (focusout)="onMenuItemChange()"
+               [disabled]="edit" [(ngModel)]="menuItem.name">
+      </div>
+      <div class="form-group">
+        <label>Price:</label>
+        <input type="text" class="form-control" name="price"
+               (focusout)="onMenuItemChange()"
+               [disabled]="edit" [(ngModel)]="menuItem.price">
+      </div>
+      <div class="form-group">
+        <label>Photo url:</label>
+        <input type="text" class="form-control" name="imgUrl"
+               (focusout)="onMenuItemChange()"
+               [disabled]="edit" [(ngModel)]="menuItem.imageUrl">
+      </div>
+      <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+    </form>
+  </div>
+</div>

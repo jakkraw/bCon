@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Item } from './../../../../server-connection/order';
+import { Item } from '../../../../server-connection/order';
 
 @Component({
   selector: 'bcon-item',
@@ -7,7 +7,7 @@ import { Item } from './../../../../server-connection/order';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-  
+
   @Input() item:Item
   constructor() { }
 
