@@ -18,6 +18,7 @@ import { SocketService } from './server-connection/socket.service';
 import { StompService } from 'ng2-stomp-service';
 import { MenuComponent } from './components/menu/menu.component';
 import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
+import {SpinnerModule} from "./ui/spinner/spinner.module";
 
 @NgModule({
   declarations: [
@@ -34,9 +35,17 @@ import { MenuItemComponent } from './components/menu/menu-item/menu-item.compone
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    SpinnerModule
   ],
-  providers: [ ServerConnectionService, LoginService, LoggedGuard, WebSocketService, SocketService, StompService ],
+  providers: [
+    ServerConnectionService,
+    LoginService,
+    LoggedGuard,
+    WebSocketService,
+    SocketService,
+    StompService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

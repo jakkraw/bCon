@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from './../../login/login.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ServerConnectionService } from '../../server-connection/server-connection.service';
+import {SpinnerService} from "../../ui/spinner/spinner.service";
 @Component({
   selector: 'bcon-login-form',
   templateUrl: './login-form.component.html',
@@ -10,16 +11,29 @@ import { ServerConnectionService } from '../../server-connection/server-connecti
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private login: LoginService, private server: ServerConnectionService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private login: LoginService,
+    private server: ServerConnectionService,
+    private spinner: SpinnerService
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.login.logOut();
+  }
 
   loginUser(form: LoginForm) {
-    this.server.logIn(form.login as string, form.password as string).subscribe(success => {
-      if (success)
-        this.router.navigateByUrl(this.route.snapshot.queryParams['returnUrl'] || '/');
-    }
-    );
+    this.spinner.start();
+
+    this.server.logIn(form.login as string, form.password as string)
+      .subscribe(success => {
+          this.spinner.stop();
+
+          if (success)
+            this.router.navigateByUrl(this.route.snapshot.queryParams['returnUrl'] || '/');
+        }
+      );
 
   }
 }
